@@ -91,7 +91,7 @@ def courses_to_course_names(courses: List[Course]):
     course_names: List[str] = []
     for course in courses:
         course_names.append(course.name)
-    course_names
+    return course_names
     # TODO consider the prefix num stuff
 
 
