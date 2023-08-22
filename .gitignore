@@ -4,3 +4,4 @@ dist/
 *.whl
 settings.json
 /files/
+__pycache__
