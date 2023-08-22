@@ -2,3 +2,4 @@ build/
 dist/
 /CurricularAnalyticsDiff/
 *.whl
+settings.json
