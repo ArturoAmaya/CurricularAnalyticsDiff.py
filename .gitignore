@@ -5,3 +5,4 @@ dist/
 settings.json
 /files/
 __pycache__
+/tests/*.json
