@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "curricularanalyticsdiff"
+version = "0.0.1"
+authors = [
+  { name = "Arturo Amaya", email = "a1amaya@ucsd.edu" },
+]
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: GNU AFFERO GENERAL PUBLIC LICENSE",
+  "Operating System :: OS Independent",
+]
+dependencies = ["curricularanalytics >= 1.4.0", "networkx >= 3.1", "pandas >= 2.0.1"]
