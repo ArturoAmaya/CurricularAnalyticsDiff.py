@@ -559,24 +559,24 @@ def curricular_diff(
     # end
     # compare metrics
     try:
-        ca.basic_metrics(curriculum1)
+        curriculum1.basic_metrics()  # ca.basic_metrics(curriculum1)
     finally:
         print("all good")
     try:
-        ca.basic_metrics(curriculum2)
+        curriculum2.basic_metrics()  # ca.basic_metrics(curriculum2)
     finally:
         print("all good")
     all_results = dict()
     metrics_same = True
     # complexity and max complexity
-    if curriculum1.metrics["complexity"][1] == curriculum2.metrics["complexity"][1]:
+    if curriculum1.metrics["complexity"][0] == curriculum2.metrics["complexity"][0]:
         if verbose:
             print(
-                f"✅Curriculum 1 and Curriculum 2 have the same total complexity: {curriculum1.metrics['complexity'][1]}"
+                f"✅Curriculum 1 and Curriculum 2 have the same total complexity: {curriculum1.metrics['complexity'][0]}"
             )
     else:
         print(
-            f"❌Curriculum 1 has a total complexity score of {curriculum1.metrics['complexity'][1]} and Curriculum2 has a total complexity score {curriculum2.metrics['complexity'][1]}"
+            f"❌Curriculum 1 has a total complexity score of {curriculum1.metrics['complexity'][0]} and Curriculum2 has a total complexity score {curriculum2.metrics['complexity'][0]}"
         )
         metrics_same = False
     if curriculum1.metrics["max. complexity"] == curriculum2.metrics["max. complexity"]:
@@ -590,15 +590,15 @@ def curricular_diff(
         )
         metrics_same = False
     # centrality and max centrality
-    if curriculum1.metrics["centrality"][1] == curriculum2.metrics["centrality"][1]:
+    if curriculum1.metrics["centrality"][0] == curriculum2.metrics["centrality"][0]:
         if verbose:
             print(
-                f"✅Curriculum 1 and Curriculum 2 have the same total centrality: {curriculum1.metrics['centrality'][1]}"
+                f"✅Curriculum 1 and Curriculum 2 have the same total centrality: {curriculum1.metrics['centrality'][0]}"
             )
 
     else:
         print(
-            f"❌Curriculum 1 has a total centrality score of {curriculum1.metrics['centrality'][1]} and Curriculum2 has a total centrality score {curriculum2.metrics['centrality'][1]}"
+            f"❌Curriculum 1 has a total centrality score of {curriculum1.metrics['centrality'][0]} and Curriculum2 has a total centrality score {curriculum2.metrics['centrality'][0]}"
         )
         metrics_same = False
 
@@ -616,17 +616,17 @@ def curricular_diff(
 
     # blocking factor and max blocking factor
     if (
-        curriculum1.metrics["blocking factor"][1]
-        == curriculum2.metrics["blocking factor"][1]
+        curriculum1.metrics["blocking factor"][0]
+        == curriculum2.metrics["blocking factor"][0]
     ):
         if verbose:
             print(
-                f"✅Curriculum 1 and Curriculum 2 have the same total blocking factor: {curriculum1.metrics['blocking factor'][1]}"
+                f"✅Curriculum 1 and Curriculum 2 have the same total blocking factor: {curriculum1.metrics['blocking factor'][0]}"
             )
 
     else:
         print(
-            f"❌Curriculum 1 has a total blocking factor score of {curriculum1.metrics['blocking factor'][1]} and Curriculum2 has a total blocking factor score {curriculum2.metrics['blocking factor'][1]}"
+            f"❌Curriculum 1 has a total blocking factor score of {curriculum1.metrics['blocking factor'][0]} and Curriculum2 has a total blocking factor score {curriculum2.metrics['blocking factor'][0]}"
         )
         metrics_same = False
 
@@ -646,15 +646,15 @@ def curricular_diff(
         metrics_same = False
 
     # delay factor and max delay factor
-    if curriculum1.metrics["delay factor"][1] == curriculum2.metrics["delay factor"][1]:
+    if curriculum1.metrics["delay factor"][0] == curriculum2.metrics["delay factor"][0]:
         if verbose:
             print(
-                f"✅Curriculum 1 and Curriculum 2 have the same total delay factor: {curriculum1.metrics['delay factor'][1]}"
+                f"✅Curriculum 1 and Curriculum 2 have the same total delay factor: {curriculum1.metrics['delay factor'][0]}"
             )
 
     else:
         print(
-            f"❌Curriculum 1 has a total delay factor score of {curriculum1.metrics['delay factor'][1]} and Curriculum2 has a total delay factor score {curriculum2.metrics['delay factor'][1]}"
+            f"❌Curriculum 1 has a total delay factor score of {curriculum1.metrics['delay factor'][0]} and Curriculum2 has a total delay factor score {curriculum2.metrics['delay factor'][0]}"
         )
         metrics_same = False
 
@@ -679,14 +679,14 @@ def curricular_diff(
         # make the initial changes array, i.e. what we're trying to explain
         explain = dict(
             {
-                "complexity": curriculum2.metrics["complexity"][1]
-                - curriculum1.metrics["complexity"][1],
-                "centrality": curriculum2.metrics["centrality"][1]
-                - curriculum1.metrics["centrality"][1],
-                "blocking factor": curriculum2.metrics["blocking factor"][1]
-                - curriculum1.metrics["blocking factor"][1],
-                "delay factor": curriculum2.metrics["delay factor"][1]
-                - curriculum1.metrics["delay factor"][1],
+                "complexity": curriculum2.metrics["complexity"][0]
+                - curriculum1.metrics["complexity"][0],
+                "centrality": curriculum2.metrics["centrality"][0]
+                - curriculum1.metrics["centrality"][0],
+                "blocking factor": curriculum2.metrics["blocking factor"][0]
+                - curriculum1.metrics["blocking factor"][0],
+                "delay factor": curriculum2.metrics["delay factor"][0]
+                - curriculum1.metrics["delay factor"][0],
             }
         )
 
@@ -745,7 +745,7 @@ def curricular_diff(
 
             elif len(matching_course) == 1:
                 # print(f"Match found for $(course.name)")
-                course2 = matching_course[1]
+                course2 = matching_course[0]  # array indexes
                 results = course_diff(
                     course, course2, curriculum1, curriculum2, verbose
                 )
@@ -760,7 +760,7 @@ def curricular_diff(
                     f"Something weird here, we have more than one match for {course.name}"
                 )
                 # A choice... FOR NOW
-                course2 = matching_course[1]
+                course2 = matching_course[0]  # array indexes
                 results = course_diff(
                     course, course2, curriculum1, curriculum2, verbose
                 )
