@@ -225,7 +225,8 @@ def centrality_investigator(
             course_path: List[Course] = []
             for id in path:
                 course_path.append(
-                    curriculum.courses[id - 1]
+                    curriculum.course_from_id(id)
+                    # curriculum.courses[id - 1]
                 )  # -1 since we start counting at 1 but python starts at 0
             # then add this path to the collection of paths
             centrality_paths.append(course_path)
