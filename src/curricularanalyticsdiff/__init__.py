@@ -11,3 +11,9 @@ from curricularanalyticsdiff.HelperFns import (
     longest_path_to_me,
     snippet,
 )
+
+from curricularanalyticsdiff.Diff import (
+    course_diff_for_unmatched_course,
+    course_diff,
+    curricular_diff,
+)
