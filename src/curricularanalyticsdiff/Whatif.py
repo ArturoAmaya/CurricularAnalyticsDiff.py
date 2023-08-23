@@ -95,10 +95,10 @@ def remove_course(course_name: str, curr: Curriculum) -> Curriculum:
         dep.delete_requisite(course)
 
     # technically we should unhook from the given course TOO
-    for req_id in course.requisites:
-        req = ca.course_from_id(modded_curric, req_id)
+    for req_id in list(course.requisites):
+        req = modded_curric.course_from_id(req_id)
         # delete_requisite!(req, course)
-        course.delete_prerquisite(req)
+        course.delete_requisite(req)
 
     # Make a new curriculum
     new_course_list: List[Course] = []
