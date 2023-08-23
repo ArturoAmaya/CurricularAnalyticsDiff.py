@@ -23,13 +23,13 @@ def print_affected_plans(affected_plans):
         if major != "":
             if major[0:3] != prev_major[0:3]:
                 prev_major = major
-                print(f"\n{major[0:3]}: {major[4:-1]}, ")
+                print(f"\n{major[0:4]}: {major[4:]}, ")
                 count += 1
             elif (
                 major != prev_major
             ):  # don't ask me why for some reason each plan code shows up multiple times
                 prev_major = major
-                print(f"{major[4:-1]}, ")
+                print(f"{major[4:]}, ")
                 count += 1
     print()
     return count
