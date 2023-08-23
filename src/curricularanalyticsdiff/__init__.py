@@ -24,3 +24,11 @@ from curricularanalyticsdiff.WhatIf import (
     add_prereq,
     remove_prereq,
 )
+
+from curricularanalyticsdiff.WhatIfInstitutional import (
+    print_affected_plans,
+    delete_prerequisite_institutional,
+    delete_course_institutional,
+    add_course_institutional,
+    add_prereq_institutional,
+)
