@@ -705,8 +705,8 @@ def curricular_diff(
         # for each course in curriculum 1, try to find a similarly named course in curriculum 2
         for course in curriculum1.courses:
             # this is the catch: MATH 20A and MATH 20A or 10A are not going to match
-            matching_course = filter(
-                lambda x: x.name == course.name, curriculum2.courses
+            matching_course = list(
+                filter(lambda x: x.name == course.name, curriculum2.courses)
             )
             if len(matching_course) == 0:
                 # if (redundants):
@@ -771,8 +771,8 @@ def curricular_diff(
                 all_results["matched courses"][course.name] = results
 
         for course in curriculum2.courses:
-            matching_course = filter(
-                lambda x: x.name == course.name, curriculum1.courses
+            matching_course = list(
+                filter(lambda x: x.name == course.name, curriculum1.courses)
             )
             if len(matching_course) == 0:
                 # print(f"No matching course found for $(course.name)")
