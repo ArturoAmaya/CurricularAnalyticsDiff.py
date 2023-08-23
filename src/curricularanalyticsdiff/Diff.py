@@ -44,7 +44,7 @@ def course_diff_for_unmatched_course(course: Course, curriculum: Curriculum, c1:
     )
     results["blocking factor"] = course.metrics["blocking factor"]
     results["delay factor"] = course.metrics["delay factor"]
-    results
+    return results
 
 
 """
@@ -132,10 +132,10 @@ def course_diff(
         centrality_c2_set = set()
         for path in centrality_c1:
             path_names = hf.courses_to_course_names(path)
-            centrality_c1_set.add(path_names)
+            centrality_c1_set.add(tuple(path_names))
         for path in centrality_c2:
             path_names = hf.courses_to_course_names(path)
-            centrality_c2_set.add(path_names)
+            centrality_c2_set.add(tuple(path_names))
         # set diff
         not_in_c2 = centrality_c1_set.difference(centrality_c2_set)
         not_in_c1 = centrality_c2_set.difference(centrality_c1_set)
@@ -738,7 +738,7 @@ def curricular_diff(
                 # where everything is gained or lost
                 results = course_diff_for_unmatched_course(course, curriculum1, True)
                 contribution = results["contribution to curriculum differences"]
-                for key, value in runningTally:
+                for key in runningTally:
                     runningTally[key] += contribution[key]
 
                 all_results["unmatched courses"][course.name] = results
@@ -781,7 +781,7 @@ def curricular_diff(
                 # where everything is gained or lost
                 results = course_diff_for_unmatched_course(course, curriculum2, False)
                 contribution = results["contribution to curriculum differences"]
-                for key, value in runningTally:
+                for key in runningTally:
                     runningTally[key] += contribution[key]
 
                 all_results["unmatched courses"][course.name] = results
