@@ -750,7 +750,7 @@ def curricular_diff(
                     course, course2, curriculum1, curriculum2, verbose
                 )
                 contribution = results["contribution to curriculum differences"]
-                for key, value in runningTally:
+                for key in runningTally:
                     runningTally[key] += contribution[key]
                 all_results["matched courses"][course.name] = results
                 # TODO: handle small bug in runningTally only containing the  results and no intermediate values
