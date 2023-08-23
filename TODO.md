@@ -1,1 +1,2 @@
 - [ ] Fix the Diff file - it is reading correct but not identical results to the Julia package. I'm tabling it for now since it doesn't show up in the ITS webApp fuctionality
+- [ ] Fix the assert throw statements in whatiftests
