@@ -69,7 +69,7 @@ def delete_prerequisite_institutional(target: str, prereq: str, curriculum: Curr
     ret = set(target_course_majors).intersection(
         set(prereq_course_majors)
     )  # intersect(set(target_course_majors), set(prereq_course_majors))
-    ret = list(ret).sort()
+    ret = sorted(ret)
     if ret[0] == "":
         ret.pop(0)  # popfirst!(ret)
 
@@ -134,22 +134,22 @@ def delete_course_institutional(course_to_remove_name: str, curriculum: Curricul
                 if len(path_set) == 0:
                     path_set = set(dep.canonical_name.split(","))
                 else:
-                    path_set.union(set(dep.canonical_name.split(",")))
+                    path_set = path_set.union(set(dep.canonical_name.split(",")))
 
-            dep_set.union(path_set)
+            dep_set = dep_set.union(path_set)
 
         full_set = prereq_set.union(dep_set)
         # don't forget all the instances where the removed course is the end of a chain and has no prereqs
         # this was what we used to take a look at: just the course's majors. now use the dependents to
         # so that courses listed under a different name also get factored in here. MATH 20C vs MATH 20C/31BH
-        full_set.union(set(course_to_remove.canonical_name.split(",")))
-        full_set = list(full_set).sort()
+        full_set = full_set.union(set(course_to_remove.canonical_name.split(",")))
+        full_set = sorted(full_set)
         count = print_affected_plans(full_set)
         print(f"Number of affected plans: {count}")
         return full_set
     else:
         # print("This course hasn't been hooked up to anything. It doesn't affect any plans other than the one it is in")
-        full_set = list(set(course_to_remove.canonical_name.split(","))).sort()
+        full_set = sorted(set(course_to_remove.canonical_name.split(",")))
         count = print_affected_plans(full_set)
         print(f"Number of affected plans: {count}")
         return full_set
@@ -225,12 +225,12 @@ def add_course_institutional(
                 if len(path_set) == 0:
                     path_set = set(dep.canonical_name.split(","))
                 else:
-                    path_set.union(set(dep.canonical_name.split(",")))
+                    path_set = path_set.union(set(dep.canonical_name.split(",")))
 
-            dep_set.union(path_set)
+            dep_set = dep_set.union(path_set)
 
         full_set = prereq_set.union(dep_set)
-        full_set = list(full_set).sort()
+        full_set = sorted(full_set)
         count = print_affected_plans(full_set)
         print(f"Number of affected plans: {count}")
         # look at all the paths that depend on me and for each path take the union of their majors
@@ -242,7 +242,7 @@ def add_course_institutional(
         for dep in hf.courses_that_depend_on_me(course, new_curriculum):
             full_set = full_set.union(set(dep.canonical_name.split(",")))
 
-        full_set = list(full_set).sort()
+        full_set = sorted(full_set)
         print(full_set)
         print("Added to the beginning, or not hooked up to anything important")
         return full_set
