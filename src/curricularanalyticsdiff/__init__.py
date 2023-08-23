@@ -17,3 +17,10 @@ from curricularanalyticsdiff.Diff import (
     course_diff,
     curricular_diff,
 )
+
+from curricularanalyticsdiff.WhatIf import (
+    add_course,
+    remove_course,
+    add_prereq,
+    remove_prereq,
+)
