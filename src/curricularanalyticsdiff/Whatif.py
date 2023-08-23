@@ -33,7 +33,7 @@ def add_course(
     credit_hours: float,
     prereqs: dict,
     dependencies: dict,
-):
+) -> Curriculum:
     ## create the course in the curricular analytics sense
     new_course = Course(course_name, credit_hours)
     modded_curric = copy.copy(curr)
@@ -78,7 +78,7 @@ It is removed from all of the prerequisite chains it was in.
 """
 
 
-def remove_course(course_name: str, curr: Curriculum):
+def remove_course(course_name: str, curr: Curriculum) -> Curriculum:
     modded_curric = copy.copy(curr)
     course = hf.course_from_name(course_name, modded_curric)
     if course is None:
@@ -121,7 +121,7 @@ Return a copy of `curr` where the course with name `added_prereq` has been added
 
 def add_prereq(
     course_name: str, added_prereq: str, curr: Curriculum, req_type: Requisite
-):
+) -> Curriculum:
     modded_curric = copy.copy(curr)
 
     target_course = hf.course_from_name(course_name, modded_curric)
@@ -151,7 +151,7 @@ Return a copy of `curr` where the course with name `to_remove` has been removed 
 """
 
 
-def remove_prereq(course_name: str, to_remove: str, curr: Curriculum):
+def remove_prereq(course_name: str, to_remove: str, curr: Curriculum) -> Curriculum:
     modded_curric = copy.copy(curr)
 
     course = hf.course_from_name(course_name, modded_curric)
