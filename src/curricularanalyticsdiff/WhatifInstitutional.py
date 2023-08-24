@@ -2,7 +2,7 @@ import curricularanalytics as ca
 from typing import List
 from curricularanalytics import Course, Curriculum, Requisite
 import curricularanalyticsdiff.HelperFns as hf
-from curricularanalyticsdiff.WhatIf import (
+from curricularanalyticsdiff.Whatif import (
     add_course,
     remove_course,
     add_prereq,
