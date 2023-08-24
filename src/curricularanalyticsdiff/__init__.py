@@ -18,14 +18,14 @@ from curricularanalyticsdiff.Diff import (
     curricular_diff,
 )
 
-from curricularanalyticsdiff.WhatIf import (
+from curricularanalyticsdiff.Whatif import (
     add_course,
     remove_course,
     add_prereq,
     remove_prereq,
 )
 
-from curricularanalyticsdiff.WhatIfInstitutional import (
+from curricularanalyticsdiff.WhatifInstitutional import (
     print_affected_plans,
     delete_prerequisite_institutional,
     delete_course_institutional,
