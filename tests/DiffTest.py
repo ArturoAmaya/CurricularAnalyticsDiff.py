@@ -71,7 +71,7 @@ data = dict(
                 "delay factor": 0.0,
             }
         ),
-        "prereqs": dict({"gained prereqs": List[str], "lost prereqs": List[str]}),
+        "prereqs": dict({"gained prereqs": [], "lost prereqs": []}),
         "blocking factor": dict({"course 1 score": 12, "course 2 score": 12}),
         "c2 name": "Chemical Engineering",
         "delay factor": dict({"course 1 score": 7.0, "course 2 score": 7.0}),
