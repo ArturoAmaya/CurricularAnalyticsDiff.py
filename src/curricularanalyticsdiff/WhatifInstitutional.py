@@ -16,6 +16,7 @@ Print a list of the plans affected by a change and return how many plans were af
 """
 
 
+# TODO fix this, it's printing weird in Python
 def print_affected_plans(affected_plans):
     prev_major = "PL99"
     count = 0
@@ -195,6 +196,7 @@ def add_course_institutional(
     # UCSD = read_csv("./targets/condensed.csv");
     course = hf.course_from_name(new_course_name, new_curriculum)
     my_centrality_paths = hf.centrality_investigator(course, new_curriculum)
+    # for debugging my_centrality_paths = sorted(my_centrality_paths, key=lambda x: x[0].name)
     if len(my_centrality_paths) > 0:
         # ok actually do stuff
         # the gist is:
@@ -209,7 +211,7 @@ def add_course_institutional(
             # course is path[my_index]
             # TODO: edge cases based on length
             my_prereqs = path[0 : my_index - 1]
-            my_deps = path[my_index + 1 : -1]
+            my_deps = path[my_index + 1 :]
             # #= HUGE EDIT: only analyze the dependencies
             # path_set = set()
             # for prereq in my_prereqs:
