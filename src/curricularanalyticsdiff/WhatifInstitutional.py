@@ -22,7 +22,7 @@ def print_affected_plans(affected_plans):
     count = 0
     for major in affected_plans:
         if major != "":
-            if major[0:3] != prev_major[0:3]:
+            if major[0:4] != prev_major[0:4]:
                 prev_major = major
                 print(f"\n{major[0:4]}: {major[4:]}, ")
                 count += 1
@@ -238,7 +238,7 @@ def add_course_institutional(
         # look at all the paths that depend on me and for each path take the union of their majors
         # then combine the two sets
         return full_set
-        # if we're adding riiiight at the beginning of the sequence it is a sink (centrality 0) but definitely affects a lot of majors
+    # if we're adding riiiight at the beginning of the sequence it is a sink (centrality 0) but definitely affects a lot of majors
     elif len(my_centrality_paths) == 0:
         full_set = set()
         for dep in hf.courses_that_depend_on_me(course, new_curriculum):
