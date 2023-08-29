@@ -10,13 +10,36 @@ from curricularanalyticsdiff.Whatif import (
 )
 import copy
 
+
+def filter_centrality_paths(paths: List[List[Course]]):
+    strict_paths: List[List[Course]] = []
+    for path in paths:
+        canon = set()
+        approved = True
+        for course in reversed(path):
+            if course.canonical_name != "":
+                if len(canon) == 0:
+                    # if the course is not "me" (the added course) and canon hasn't been populated
+                    canon = set(course.canonical_name.split(","))
+                else:
+                    # if it's not me, but canon's been populated
+                    if (
+                        set(course.canonical_name.split(",")).intersection(canon)
+                        != canon
+                    ):
+                        approved = False
+                        break
+        if approved:
+            strict_paths.append(path)
+    return strict_paths
+
+
 """
     print_affected_plans(affected_plans:Vector{String})
 Print a list of the plans affected by a change and return how many plans were affected.
 """
 
 
-# TODO fix this, it's printing weird in Python
 def print_affected_plans(affected_plans):
     prev_major = "PL99"
     count = 0
@@ -73,7 +96,6 @@ def delete_prerequisite_institutional(target: str, prereq: str, curriculum: Curr
     ret = sorted(ret)
     if ret[0] == "":
         ret.pop(0)  # popfirst!(ret)
-
     count = print_affected_plans(ret)
     print(f"Number of affected plans: {count}")
     return ret
@@ -113,7 +135,9 @@ Remove the course with name `course_to_remove_name` from `curriculum` and print 
 """
 
 
-def delete_course_institutional(course_to_remove_name: str, curriculum: Curriculum):
+def delete_course_institutional(
+    course_to_remove_name: str, curriculum: Curriculum, strict: bool = True
+):
     course_to_remove = hf.course_from_name(course_to_remove_name, curriculum)
     if course_to_remove is None:
         raise ValueError(
@@ -121,6 +145,9 @@ def delete_course_institutional(course_to_remove_name: str, curriculum: Curricul
         )
 
     centrality_paths = hf.centrality_investigator(course_to_remove, curriculum)
+    my_centrality_paths = (
+        filter_centrality_paths(my_centrality_paths) if strict else my_centrality_paths
+    )
     if len(centrality_paths) > 0:
         prereq_set = set()
         dep_set = set()
@@ -129,7 +156,7 @@ def delete_course_institutional(course_to_remove_name: str, curriculum: Curricul
                 0
             ]  # findall(x -> x == course_to_remove, path)[1]
             my_prereqs = path[0 : my_index - 1]
-            my_deps = path[my_index + 1 : -1]
+            my_deps = path[my_index + 1 :]
             path_set = set()
             for dep in my_deps:
                 if len(path_set) == 0:
@@ -184,6 +211,7 @@ def add_course_institutional(
     new_course_credit_hours: float,
     prereqs: dict,
     dependencies: dict,
+    strict: bool = True,
 ):
     new_curriculum = add_course(
         new_course_name, curriculum, new_course_credit_hours, prereqs, dependencies
@@ -197,6 +225,9 @@ def add_course_institutional(
     course = hf.course_from_name(new_course_name, new_curriculum)
     my_centrality_paths = hf.centrality_investigator(course, new_curriculum)
     # for debugging my_centrality_paths = sorted(my_centrality_paths, key=lambda x: x[0].name)
+    my_centrality_paths = (
+        filter_centrality_paths(my_centrality_paths) if strict else my_centrality_paths
+    )
     if len(my_centrality_paths) > 0:
         # ok actually do stuff
         # the gist is:
