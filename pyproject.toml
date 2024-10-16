@@ -15,4 +15,4 @@ classifiers = [
   "License :: OSI Approved :: GNU AFFERO GENERAL PUBLIC LICENSE",
   "Operating System :: OS Independent",
 ]
-dependencies = ["curricularanalytics >= 1.4.0", "networkx >= 3.1", "pandas >= 2.0.1"]
+dependencies = ["curricularanalytics >= 0.0.0", "networkx >= 3.1", "pandas >= 2.0.1"]
